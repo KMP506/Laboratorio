@@ -1,5 +1,14 @@
 package laboratorio;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -58,12 +67,17 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/New.png"))); // NOI18N
         jMenuItem1.setText("Abrir");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/Save.png"))); // NOI18N
         jMenuItem2.setText("Guardar");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu1.add(jMenuItem2);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/Delete.png"))); // NOI18N
         jMenuItem3.setText("Salir");
         jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
         jMenu1.add(jMenuItem3);
@@ -113,29 +127,75 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+      confirmarSalida();  
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+     JFileChooser selector = new JFileChooser();
+    selector.setFileFilter(new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt"));
+
+    int resultado = selector.showOpenDialog(this);
+
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+        File archivoSeleccionado = selector.getSelectedFile();
+        String contenido = "";
+        try {
+            BufferedReader lector = new BufferedReader(new FileReader(archivoSeleccionado));
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                contenido = contenido + linea + "\n";
+            }
+            lector.close();
+
+            txtEditor.setText(contenido);
+            this.setTitle("Documento abierto: " + archivoSeleccionado.getAbsolutePath());
+
+            archivoActual = new ArchivoEditor(archivoSeleccionado.getName(), archivoSeleccionado.getAbsolutePath(), contenido);
+
+        } catch (IOException e) {
+            showError("No se pudo abrir el archivo: " + e.getMessage(), "Error");
+        }
+    }  
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+      JFileChooser selector = new JFileChooser();
+        selector.setFileFilter(new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt"));
+
+        int resultado = selector.showSaveDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoDestino = selector.getSelectedFile();
+
+            try {
+                BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoDestino));
+                escritor.write(txtEditor.getText());
+                escritor.close();
+
+                this.setTitle("Documento guardado: " + archivoDestino.getAbsolutePath());
+
+                archivoActual = new ArchivoEditor(archivoDestino.getName(), archivoDestino.getAbsolutePath(), txtEditor.getText());
+
+            } catch (IOException e) {
+                showError("No se pudo guardar el archivo: " + e.getMessage(), "Error");
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +221,32 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FrmEditorTexto().setVisible(true));
     }
+    
+     private void confirmarSalida() {
+        String contenidoGuardado = "";
+        if (archivoActual != null) {
+            contenidoGuardado = archivoActual.getContenido();
+        }
+
+        if (!txtEditor.getText().equals(contenidoGuardado)) {
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                    "El documento tiene cambios sin guardar. ¿Desea salir de todas formas?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        } else {
+            System.exit(0);
+        }
+    }
+    
+    private void showError(String mensaje, String titulo) {
+    JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+}
+    private ArchivoEditor archivoActual;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
