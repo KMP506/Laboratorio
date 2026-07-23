@@ -51,7 +51,10 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         txtEditor.setRows(5);
         jScrollPane1.setViewportView(txtEditor);
 
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(103, 27));
+
         jMenu1.setText("Archivo");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem1.setText("Abrir");
         jMenu1.add(jMenuItem1);
@@ -66,6 +69,7 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Editar");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem4.setText("Copiar");
