@@ -7,7 +7,7 @@ package laboratorio;
 /**
  *
  * @author kevin
- */
+ *////
 public class ArchivoEditor {
   protected String nombre;
   protected String ruta;
