@@ -16,7 +16,15 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
      * Creates new form ConvertidorUnidades
      */
     public ConvertidorUnidades() {
-        initComponents();
+        initComponents();    
+        }
+    private void convertir(){
+            double valor = Double.parseDouble(spValor.getValue().toString());
+            String origen=cbOrigen.getSelectedItem().toString();
+            String destino = cbDestino.getSelectedItem().toString();
+            double resultado= Conversion.convertir(valor, origen, destino);
+            
+            txtResultado.setText(String.format("%.2f", resultado));
     }
 
     /**
@@ -33,7 +41,7 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
         lblValor = new javax.swing.JLabel();
         spValor = new javax.swing.JSpinner();
         txtResultado = new javax.swing.JTextField();
-        cbResultado = new javax.swing.JComboBox<>();
+        cbDestino = new javax.swing.JComboBox<>();
         btnIntercambiar = new javax.swing.JButton();
         cbOrigen = new javax.swing.JComboBox<>();
 
@@ -43,10 +51,12 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
 
         lblValor.setText("Valor");
 
+        spValor.addChangeListener(this::spValorStateChanged);
+
         txtResultado.setEditable(false);
         txtResultado.addActionListener(this::txtResultadoActionPerformed);
 
-        cbResultado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celsius", "Fahrenheit", "Kelvin ", "Rankine" }));
+        cbDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celsius", "Fahrenheit", "Kelvin ", "Rankine" }));
 
         btnIntercambiar.setText("⇄");
         btnIntercambiar.addActionListener(this::btnIntercambiarActionPerformed);
@@ -76,7 +86,7 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnIntercambiar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,7 +104,7 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIntercambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
 
@@ -124,6 +134,10 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtResultadoActionPerformed
 
+    private void spValorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spValorStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spValorStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -151,8 +165,8 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIntercambiar;
+    private javax.swing.JComboBox<String> cbDestino;
     private javax.swing.JComboBox<String> cbOrigen;
-    private javax.swing.JComboBox<String> cbResultado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblValor;

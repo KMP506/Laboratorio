@@ -60,7 +60,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnIntercambiar" pref="50" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cbResultado" min="-2" pref="148" max="-2" attributes="0"/>
+                          <Component id="cbDestino" min="-2" pref="148" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -84,7 +84,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnIntercambiar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="cbOrigen" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="cbResultado" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="cbDestino" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
@@ -103,6 +103,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spValor">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spValorStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtResultado">
           <Properties>
@@ -112,7 +115,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtResultadoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbResultado">
+        <Component class="javax.swing.JComboBox" name="cbDestino">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
