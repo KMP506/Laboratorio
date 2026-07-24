@@ -16,7 +16,11 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
      * Creates new form ConvertidorUnidades
      */
     public ConvertidorUnidades() {
-        initComponents();    
+        initComponents();
+        
+        cbOrigen.setSelectedIndex(0);
+        cbDestino.setSelectedIndex(1);
+        convertir();
         }
     private void convertir(){
             double valor = Double.parseDouble(spValor.getValue().toString());
@@ -57,6 +61,7 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
         txtResultado.addActionListener(this::txtResultadoActionPerformed);
 
         cbDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celsius", "Fahrenheit", "Kelvin ", "Rankine" }));
+        cbDestino.addActionListener(this::cbDestinoActionPerformed);
 
         btnIntercambiar.setText("⇄");
         btnIntercambiar.addActionListener(this::btnIntercambiarActionPerformed);
@@ -84,7 +89,7 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cbOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnIntercambiar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                        .addComponent(btnIntercambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
@@ -123,11 +128,15 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrigenActionPerformed
-        // TODO add your handling code here:
+        convertir();
     }//GEN-LAST:event_cbOrigenActionPerformed
 
     private void btnIntercambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiarActionPerformed
-        // TODO add your handling code here:
+        int aux=cbOrigen.getSelectedIndex();
+        
+        cbOrigen.setSelectedIndex(cbDestino.getSelectedIndex());
+        cbDestino.setSelectedIndex(aux);
+        convertir();
     }//GEN-LAST:event_btnIntercambiarActionPerformed
 
     private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
@@ -135,8 +144,12 @@ public class ConvertidorUnidades extends javax.swing.JFrame {
     }//GEN-LAST:event_txtResultadoActionPerformed
 
     private void spValorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spValorStateChanged
-        // TODO add your handling code here:
+       convertir();
     }//GEN-LAST:event_spValorStateChanged
+
+    private void cbDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDestinoActionPerformed
+        convertir();
+    }//GEN-LAST:event_cbDestinoActionPerformed
 
     /**
      * @param args the command line arguments
