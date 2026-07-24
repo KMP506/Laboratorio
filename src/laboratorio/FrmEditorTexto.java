@@ -1,14 +1,20 @@
 package laboratorio;
 
+
+
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -67,12 +73,13 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         txtEditor.setRows(5);
         jScrollPane1.setViewportView(txtEditor);
 
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(103, 27));
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(103, 40));
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon32/folder (7).png"))); // NOI18N
         jMenu1.setText("Archivo");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/New.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/Search.png"))); // NOI18N
         jMenuItem1.setText("Abrir");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu1.add(jMenuItem1);
@@ -89,17 +96,23 @@ public class FrmEditorTexto extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/Edit.png"))); // NOI18N
         jMenu2.setText("Editar");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/New.png"))); // NOI18N
         jMenuItem4.setText("Copiar");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/Edit.png"))); // NOI18N
         jMenuItem5.setText("Pegar");
+        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
         jMenu2.add(jMenuItem5);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon24/Cancel.png"))); // NOI18N
         jMenuItem6.setText("Cortar");
         jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
         jMenu2.add(jMenuItem6);
@@ -107,9 +120,11 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         jMenu3.setText("Fuente");
 
         jMenuItem7.setText("Negrita");
+        jMenuItem7.addActionListener(this::jMenuItem7ActionPerformed);
         jMenu3.add(jMenuItem7);
 
         jMenuItem8.setText("Cursiva");
+        jMenuItem8.addActionListener(this::jMenuItem8ActionPerformed);
         jMenu3.add(jMenuItem8);
 
         jMenu2.add(jMenu3);
@@ -117,9 +132,11 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         jMenu4.setText("Color");
 
         jMenuItem9.setText("Fondo");
+        jMenuItem9.addActionListener(this::jMenuItem9ActionPerformed);
         jMenu4.add(jMenuItem9);
 
         jMenuItem10.setText("Letra");
+        jMenuItem10.addActionListener(this::jMenuItem10ActionPerformed);
         jMenu4.add(jMenuItem10);
 
         jMenu2.add(jMenu4);
@@ -138,7 +155,7 @@ public class FrmEditorTexto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,7 +166,7 @@ public class FrmEditorTexto extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+  txtEditor.cut();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -208,6 +225,40 @@ public class FrmEditorTexto extends javax.swing.JFrame {
         confirmarSalida();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         txtEditor.copy();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    txtEditor.paste();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+       Font fuenteActual = txtEditor.getFont();
+        int estiloNuevo = fuenteActual.getStyle() ^ Font.BOLD;
+        txtEditor.setFont(new Font(fuenteActual.getName(), estiloNuevo, fuenteActual.getSize()));
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+          Font fuenteActual = txtEditor.getFont();
+        int estiloNuevo = fuenteActual.getStyle() ^ Font.ITALIC;
+        txtEditor.setFont(new Font(fuenteActual.getName(), estiloNuevo, fuenteActual.getSize()));
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+         Color colorElegido = JColorChooser.showDialog(this, "Elegir color de fondo", txtEditor.getBackground());
+        if (colorElegido != null) {
+            txtEditor.setBackground(colorElegido);
+        }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+               Color colorElegido = JColorChooser.showDialog(this, "Elegir color de letra", txtEditor.getForeground());
+        if (colorElegido != null) {
+            txtEditor.setForeground(colorElegido);  
+        }
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
